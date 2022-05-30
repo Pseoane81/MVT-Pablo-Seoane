@@ -5,6 +5,11 @@ from django.template import loader
 
 
 # Create your views here.
+
+def inicio(request):
+    return render(request, "home.html")
+
+    
 def familia(request):
     familia = Familia.objects.all()
     datos = {"datos":familia}
