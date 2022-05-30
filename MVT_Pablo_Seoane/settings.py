@@ -55,7 +55,7 @@ ROOT_URLCONF = 'MVT_Pablo_Seoane.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["D:/Coder-Python/PrimeMVT/MVT_Pablo_Seoane/famila/plantillas"],
+        'DIRS': ["C:/CoderMVT/MVT-Pablo-Seoane/famila/plantillas"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
