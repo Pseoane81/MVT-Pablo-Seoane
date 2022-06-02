@@ -10,7 +10,9 @@
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Camada</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Especialidad</th>
+            <th scope="col">Mail</th>
           </tr>
         </thead>
         <tbody>
@@ -18,11 +20,13 @@
           <tr>
             <th scope="row">{{n.id}}</th>
             <td>{{n.nombre}}</td>
-            <td>{{n.camada}}</td>
+            <td>{{n.Apellido}}</td>
+            <td>{{n.Especialidad}}</td>
+            <td>{{n.mail}}</td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
-
+      
 
 {% endblock %}

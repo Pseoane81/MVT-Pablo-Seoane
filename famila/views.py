@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from famila.models import Familia
+from famila.models import Familia,Alumno,Profesor,Curso
 from django.template import loader
 from famila.forms import Formulario_Listo
 
@@ -10,26 +10,65 @@ from famila.forms import Formulario_Listo
 def inicio(request):
     return render(request, "padre.html")
 
-def padre(request):
-    return render(request, "padre.html")
-
 def alumnos(request):
-    return render(request, "alumnos.html")
+    alum = Alumno.objects.all()
+    datos = {"datos":alum}
+    plantilla = loader.get_template("alumnos.html")
+    documento = plantilla.render(datos)
+    
+    return HttpResponse(documento)
 
-def contactos(request):
-    return render(request, "contactos.html")
+def profesores(request):
+    prof = Profesor.objects.all()
+    datos = {"datos":prof}
+    plantilla = loader.get_template("profesores.html")
+    documento = plantilla.render(datos)
+    
+    return HttpResponse(documento)
 
-def formulario(request):
+def cursos(request):
+    curso = Curso.objects.all()
+    datos = {"datos":curso}
+    plantilla = loader.get_template("cursos.html")
+    documento = plantilla.render(datos)
+    
+    return HttpResponse(documento)
+
+def alta_alumno(request):
 
     if request.method == "POST":
         #mi_formulario = Formulario_Listo(request.POST)
         #if mi_formulario.is_valid():
             #data= mi_formulario.cleaned_data
-            persona= Familia(nombre=request.POST["nombre"],edad=request.POST["edad"],Fecha_Nac=request.POST["fecha"])
+            persona= Alumno(nombre=request.POST["nombre"],camada=request.POST["camada"],Fecha_Nac=request.POST["fecha"])
             persona.save()
+            return redirect("alumnos")
+
+    return render(request, "alta_alumno.html")
+
+def alta_curso(request):
+    
+    if request.method == "POST":
+        #mi_formulario = Formulario_Listo(request.POST)
+        #if mi_formulario.is_valid():
+            #data= mi_formulario.cleaned_data
+            curso= Curso(nombre=request.POST["nombre"],camada=request.POST["camada"])
+            curso.save()
             return redirect("cursos")
 
-    return render(request, "formulario.html")
+    return render(request, "alta_curso.html")
+
+def alta_profesor(request):
+    
+    if request.method == "POST":
+        #mi_formulario = Formulario_Listo(request.POST)
+        #if mi_formulario.is_valid():
+            #data= mi_formulario.cleaned_data
+            profesor= Profesor(nombre=request.POST["nombre"],Apellido=request.POST["Apellido"],Especialidad=request.POST["especialidad"],mail=request.POST["mail"])
+            profesor.save()
+            return redirect("profesores")
+
+    return render(request, "alta_profesor.html")
     
 
 def busqueda(request):
@@ -40,18 +79,11 @@ def busqueda(request):
 def res_busqueda(request):
     if request.GET['nombre']:
         nombre=request.GET['nombre']
-        familia= Familia.objects.filter(nombre__icontains = nombre)
-        return render(request, "resultado_busqueda.html", {"familia": familia})
+        alumno= Alumno.objects.filter(nombre__icontains = nombre)
+        return render(request, "resultado_busqueda.html", {"alumno": alumno})
     else:
         return HttpResponse("Campo Vacio")
 
     
 
     
-def cursos(request):
-    familia = Familia.objects.all()
-    datos = {"datos":familia}
-    plantilla = loader.get_template("cursos.html")
-    documento = plantilla.render(datos)
-    
-    return HttpResponse(documento)

@@ -4,15 +4,14 @@
 
 {% block contenido %}
 
-<form action="formulario" method="POST">
+<h1>Fomulario de alta de Curso</h1>
+
+<form action="alta_curso" method="POST">
     {% csrf_token %}
     <p>Nombre:</p>
     <input type="text" name="nombre">
-    <p>Edad:</p>
-    <input type="number" name="edad">
-    <p>Fecha Nacimiento:</p>
-    <input type="date" name="fecha">
-
+    <p>Camada:</p>
+    <input type="number" name="camada">
     <input type="submit" value="ENVIAR">
 
 </form>

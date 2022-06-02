@@ -4,10 +4,27 @@
 
 {% block contenido %}
 
+    
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">camada</th>
+            <th scope="col">Fecha Nac</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for n in datos %}
+          <tr>
+            <th scope="row">{{n.id}}</th>
+            <td>{{n.nombre}}</td>
+            <td>{{n.camada}}</td>
+            <td>{{n.Fecha_Nac}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 
-<p> Alumno 1</p>
-<p> Alumno 2</p>
-<p> Alumno 3</p>
-<p> Alumno 4</p>
 
 {% endblock %}

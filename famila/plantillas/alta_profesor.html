@@ -1,0 +1,25 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block contenido %}
+
+<h1>Fomulario de alta de Profesor</h1>
+
+<form action="alta_profesor" method="POST">
+    {% csrf_token %}
+    <p>Nombre:</p>
+    <input type="text" name="nombre">
+    <p>Apellido:</p>
+    <input type="text" name="Apellido">
+    <p>Especialidad:</p>
+    <input type="text" name="especialidad">
+    <p>Mail:</p>
+    <input type="email" name="mail">
+
+    <input type="submit" value="ENVIAR">
+
+</form>
+
+
+{% endblock %}

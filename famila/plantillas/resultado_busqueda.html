@@ -4,7 +4,7 @@
 
 {% block contenido %}
 
-    
+{% if alumno %}
     <table class="table">
         <thead>
           <tr>
@@ -15,8 +15,8 @@
           </tr>
         </thead>
         <tbody>
-            {% if familia %}
-            {% for n in familia %}
+            
+            {% for n in alumno %}
           <tr>
             <th scope="row">{{n.id}}</th>
             <td>{{n.nombre}}</td>
@@ -24,12 +24,12 @@
             <td>{{n.Fecha_Nac}}</td>
           </tr>
             {% endfor %}
-            {% else %}
-            <p> NO SE ENCONTRO DATOS</p>
-            {% endif %}
+            
 
         </tbody>
       </table>
-
+      {% else %}
+            <p> NO SE ENCONTRO DATOS</p>
+      {% endif %}
 
 {% endblock %}
