@@ -1,0 +1,21 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block contenido %}
+
+<form action="formulario" method="POST">
+    {% csrf_token %}
+    <p>Nombre:</p>
+    <input type="text" name="nombre">
+    <p>Edad:</p>
+    <input type="number" name="edad">
+    <p>Fecha Nacimiento:</p>
+    <input type="date" name="fecha">
+
+    <input type="submit" value="ENVIAR">
+
+</form>
+
+
+{% endblock %}
