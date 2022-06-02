@@ -8,7 +8,7 @@ from famila.forms import Formulario_Listo
 # Create your views here.
 
 def inicio(request):
-    return render(request, "home.html")
+    return render(request, "padre.html")
 
 def padre(request):
     return render(request, "padre.html")
@@ -30,6 +30,21 @@ def formulario(request):
             return redirect("cursos")
 
     return render(request, "formulario.html")
+    
+
+def busqueda(request):
+
+    return render(request, "buscarcurso.html")
+
+
+def res_busqueda(request):
+    if request.GET['nombre']:
+        nombre=request.GET['nombre']
+        familia= Familia.objects.filter(nombre__icontains = nombre)
+        return render(request, "resultado_busqueda.html", {"familia": familia})
+    else:
+        return HttpResponse("Campo Vacio")
+
     
 
     
