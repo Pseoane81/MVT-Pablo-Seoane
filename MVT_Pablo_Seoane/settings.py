@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -56,7 +58,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         #'DIRS': ["C:/CoderMVT/MVT-Pablo-Seoane/famila/plantillas"],
-        'DIRS': ["D:/Coder-Python/PrimeMVT/MVT_Pablo_Seoane/famila/plantillas"],
+        #'DIRS': ["D:/Coder-Python/PrimeMVT/MVT_Pablo_Seoane/famila/plantillas"],
+        'DIRS': [Path(BASE_DIR,"famila", "plantillas")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
