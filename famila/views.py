@@ -1,8 +1,12 @@
+from tkinter.messagebox import NO
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from famila.models import Familia,Alumno,Profesor,Curso
 from django.template import loader
 from famila.forms import Formulario_Listo, Formulario_Curso
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -26,6 +30,7 @@ def profesores(request):
     
     return HttpResponse(documento)
 
+@login_required
 def cursos(request):
     curso = Curso.objects.all()
     datos = {"datos":curso}
@@ -113,3 +118,43 @@ def editar(request, id):
         mi_formulario = Formulario_Curso(initial={"curso":curso.nombre, "camada": curso.camada})
             
     return render(request, "editar_Curso.html", {"mi_formulario":mi_formulario, "curso":curso})
+
+
+def login_request(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data= request.POST)
+
+        if form.is_valid():
+            
+            usuario = form.cleaned_data.get("username")
+            contra = form.cleaned_data.get("password")
+
+            user = authenticate(username=usuario,password=contra)
+
+            if user is not None:
+                login(request,user)
+                return render(request, "inicio.html", {"mensaje":f"Bienvenido {usuario}"})
+            else:
+                return HttpResponse(f"Usuario Incorrecto")
+        else:
+            return HttpResponse(f"Form Incorrecto {form}")
+    
+    form = AuthenticationForm()
+
+    return render(request, "login.html", {"form":form})
+
+
+def register_user(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+            return HttpResponse("Usuario creado")
+
+    else:
+        form = UserCreationForm()
+    return render(request, "registro.html", {"form":form})
+
+
