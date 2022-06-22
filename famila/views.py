@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from famila.models import Familia,Alumno,Profesor,Curso
 from django.template import loader
-from famila.forms import Formulario_Listo
+from famila.forms import Formulario_Listo, Formulario_Curso
 
 
 # Create your views here.
@@ -85,5 +85,31 @@ def res_busqueda(request):
         return HttpResponse("Campo Vacio")
 
     
+def deleteCurso(request, id):
+    curso= Curso.objects.get(id=id)
+    curso.delete()
 
-    
+    curso= Curso.objects.all()
+
+    return render(request, "cursos.html", {"datos": curso})
+    #return redirect("cursos")
+
+
+def editar(request, id):
+    curso= Curso.objects.get(id=id)
+
+    if request.method == "POST":
+        mi_formulario = Formulario_Curso(request.POST)
+        if mi_formulario.is_valid():
+            datos = mi_formulario.cleaned_data
+            curso.nombre= datos["nombre"]
+            curso.camada= datos["camada"]
+            curso.save()
+        
+        curso= Curso.objects.all()
+        return render(request, "cursos.html", {"datos": curso})
+        #return redirect("cursos")
+    else:
+        mi_formulario = Formulario_Curso(initial={"curso":curso.nombre, "camada": curso.camada})
+            
+    return render(request, "editar_Curso.html", {"mi_formulario":mi_formulario, "curso":curso})

@@ -12,4 +12,7 @@ urlpatterns = [
     path("alta_curso", views.alta_curso, name="alta_curso"),
     path("busqueda", views.busqueda, name="busqueda"),
     path("res_busqueda", views.res_busqueda),
+    path("deleteCurso/<int:id>", views.deleteCurso, name="deleteCurso"),
+    path("editar_curso/<int:id>", views.editar, name="editar_curso"),
+    path("editar_curso", views.editar, name="editar_curso")
 ]
