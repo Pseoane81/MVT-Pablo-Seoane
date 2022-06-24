@@ -20,9 +20,16 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
+                {% if request.user.is_authenticated %}
                 <a class="navbar-brand" href="{% url 'cursos' %}">Cursos</a>
+                {% endif %}
+                {% if request.user.is_authenticated %}
                 <a class="navbar-brand" href="{% url 'alumnos' %}">Alumnos</a>
+                {% endif %}
+                {% if request.user.is_authenticated %}
                 <a class="navbar-brand" href="{% url 'profesores' %}">Profesores</a>
+                {% endif %}
+                {% if request.user.is_authenticated %}
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                       Alta de Datos
@@ -33,7 +40,16 @@
                       <li><a href="{% url 'alta_profesor' %}"> <button class="dropdown-item" type="button">Alta Profesores</button></a></li>
                     </ul>
                   </div>
-                <a class="navbar-brand" href="{% url 'busqueda' %}">Busqueda datosss</a>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                <a class="navbar-brand" href="{% url 'busqueda' %}">Busqueda datos</a>
+                {% endif %}
+                {% if not request.user.is_authenticated %}
+                <a class="navbar-brand" href="{% url 'login' %}">INGRESARs</a>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                <p class="text-muted small mb-4">Bienvenido {{user.username}}</p>
+                {% endif %}
             </div>
         </nav>
         <!-- Masthead-->

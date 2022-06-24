@@ -1,7 +1,7 @@
 from tkinter.messagebox import NO
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from famila.models import Familia,Alumno,Profesor,Curso
+from famila.models import Familia,Alumno,Profesor,Curso, avatar
 from django.template import loader
 from famila.forms import Formulario_Listo, Formulario_Curso, UserEditForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def inicio(request):
+    
     return render(request, "padre.html")
 
 def alumnos(request):
@@ -133,7 +134,9 @@ def login_request(request):
 
             if user is not None:
                 login(request,user)
-                return render(request, "inicio.html", {"mensaje":f"Bienvenido {usuario}"})
+                avatares = avatar.objects.filter(user=request.user.id)
+                return render(request, "inicio.html", {"url": avatares[0].image.url})
+
             else:
                 return HttpResponse(f"Usuario Incorrecto")
         else:

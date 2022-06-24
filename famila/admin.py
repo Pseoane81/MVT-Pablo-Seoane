@@ -6,3 +6,5 @@ from .models import *
 admin.site.register(Familia)
 admin.site.register(Curso)
 admin.site.register(Alumno)
+admin.site.register(Profesor)
+admin.site.register(avatar)
