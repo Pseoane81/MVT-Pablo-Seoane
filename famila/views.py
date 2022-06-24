@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from famila.models import Familia,Alumno,Profesor,Curso
 from django.template import loader
-from famila.forms import Formulario_Listo, Formulario_Curso
+from famila.forms import Formulario_Listo, Formulario_Curso, UserEditForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -157,4 +157,24 @@ def register_user(request):
         form = UserCreationForm()
     return render(request, "registro.html", {"form":form})
 
+@login_required
+def editarperfil(request):
+    usuario = request.user
 
+    if request.method == "POST":
+        miformulario = UserEditForm(request.POST)
+
+        if miformulario.is_valid():
+            informacion = miformulario.cleaned_data
+
+            usuario.email = informacion["email"]
+            password = informacion["password1"]
+            usuario.set_password(password)
+            usuario.save()
+
+            return render(request, "inicio.html")
+
+    else:
+        miformulario = UserEditForm(initial={"email":usuario.email})
+
+    return render(request, "editar_perfil.html", {"miformulario":miformulario, "usuario":usuario})
